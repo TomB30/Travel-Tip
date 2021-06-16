@@ -1,6 +1,6 @@
 'use strict';
 
-import { locService } from './services/geocode-service.js';
+import { locService } from './services/geocode-Service.js';
 import { mapService } from './services/googleMaps-service.js';
 
 window.onload = onInit;
