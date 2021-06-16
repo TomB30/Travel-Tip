@@ -51,5 +51,6 @@ function onGetUserPos() {
 }
 function onPanTo() {
     console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+    var address = document.querySelector('.search-input').value;
+    mapService.panTo(address);
 }
