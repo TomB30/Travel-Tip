@@ -2,13 +2,14 @@
 
 import { locService } from './geocode-Service.js';
 import { storageService } from './storage-service.js';
-const gMyUrl = new URL('https://tomb30.github.io/Travel-Tip/');
+const gMyUrl = new URL('http://127.0.0.1:5500/index.html');
 console.log(gMyUrl.toString());
 export const mapService = {
   initMap,
   addMarker,
   panTo,
   setParams,
+  copyLocation,
   gMap,
   gMyUrl,
 };
@@ -20,7 +21,7 @@ function initMap(lat = 35.51507111351932, lng = 139.75380019366722) {
     console.log('google available');
     gMap = new google.maps.Map(document.querySelector('#map'), {
       center: { lat, lng },
-      zoom: 15,
+      zoom: 11,
     });
     gMap.addListener('click', (mapsMouseEvent) => {
       const lat = mapsMouseEvent.latLng.lat();
@@ -74,4 +75,17 @@ function setParams(lat, lng) {
   gMyUrl.searchParams.set('lng', lng);
   console.log(gMyUrl);
   console.log(mapService.gMyUrl.searchParams.get('lat'));
+}
+
+function copyLocation() {
+  var copyText = document.querySelector('input[name="copy-loc"]');
+  copyText.value = gMyUrl.href;
+  console.log(copyText.value);
+
+  /* Select the text field */
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+  /* Copy the text inside the text field */
+  document.execCommand('copy');
 }

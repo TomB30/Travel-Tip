@@ -7,6 +7,7 @@ window.onload = onInit;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
+document.querySelector('.copy-btn').addEventListener('click', onCopyLocation);
 
 function onInit() {
   mapService
@@ -15,6 +16,7 @@ function onInit() {
       console.log('Map is ready');
     })
     .then(() => {
+      console.log('hello');
       const paramters = new URLSearchParams(window.location.search);
       const lat = paramters.get('lat');
       const lng = paramters.get('lng');
@@ -90,6 +92,7 @@ function onDeleteLoc(name) {
 
 function onGoTo(lat, lng) {
   mapService.panTo(lat, lng);
+  onSetParams(lat, lng);
   document.querySelector('.locs-table').hidden = true;
 }
 
@@ -106,4 +109,9 @@ function onPanTo() {
 
 function onSetParams(lat, lng) {
   mapService.setParams(lat, lng);
+}
+
+function onCopyLocation() {
+  console.log('hi');
+  mapService.copyLocation();
 }
