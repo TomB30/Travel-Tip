@@ -18,9 +18,9 @@
             <div class="btn-nav">
                 <div class="search-input-container">
                     <input type="search" class="search-input" placeholder="Find Location">
-                    <button class="search-btn"><img src="icons/search-icon.png" alt=""></button>
+                    <button class="search-btn" onclick="onPanTo()"><img src="icons/search-icon.png" alt=""></button>
                 </div>
-                <button class="my-location-btn">My Location</button>
+                <button class="my-location-btn" onclick="onGetUserPos()">My Location</button>
             </div>
         </header>
         <main class="main-content-container debug">
@@ -31,7 +31,9 @@
             <div class="main-content">
                 <div class="details-container">
                     <div class="weather-container">Weather</div>
-                    <div class="location-table-container">Locations</div>
+                    <div class="location-table-container">
+                        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+                    </div>
                 </div>
                 <div class="map-container">
                     Map
@@ -41,6 +43,7 @@
     </div>
 
 
+    <!-- <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button> -->
 
 
     <script type="module" src="js/main-controller.js"></script>
