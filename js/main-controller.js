@@ -4,7 +4,6 @@ import { locService } from './services/geocode-Service.js';
 import { mapService } from './services/googleMaps-service.js';
 
 window.onload = onInit;
-window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
@@ -24,11 +23,6 @@ function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
-}
-
-function onAddMarker() {
-  console.log('Adding a marker');
-  mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
 }
 
 function onGetLocs() {
@@ -74,7 +68,7 @@ function onPanTo() {
   console.log('Panning the Map');
   var address = document.querySelector('.search-input').value;
   locService.getCoords(address).then((res) => {
-    mapService.panTo(res.lat,res.lng)
+    mapService.panTo(res.lat, res.lng);
   });
   document.querySelector('.search-input').value = '';
   // mapService.panTo(coords.lat,coords.lng);

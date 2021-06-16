@@ -4,6 +4,7 @@ export const mapService = {
   initMap,
   addMarker,
   panTo,
+  gMap,
 };
 
 var gMap;
@@ -13,7 +14,13 @@ function initMap(lat = 35.51507111351932, lng = 139.75380019366722) {
     console.log('google available');
     gMap = new google.maps.Map(document.querySelector('#map'), {
       center: { lat, lng },
-      zoom: 5,
+      zoom: 15,
+    });
+    gMap.addListener('click', (mapsMouseEvent) => {
+      const lat = mapsMouseEvent.latLng.lat();
+      const lng = mapsMouseEvent.latLng.lng();
+      const pos = { lat, lng };
+      addMarker(pos);
     });
   });
 }
@@ -22,7 +29,7 @@ function addMarker(loc) {
   var marker = new google.maps.Marker({
     position: loc,
     map: gMap,
-    title: 'Hello World!',
+    title: prompt('What is the name of this place?'),
   });
   return marker;
 }
