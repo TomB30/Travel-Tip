@@ -75,10 +75,8 @@ function onGetUserPos() {
   getPosition()
     .then((pos) => {
       //pos is by pos.coords
-      document.querySelector(
-        '.user-pos'
-      ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`;
       mapService.panTo(pos.coords.latitude, pos.coords.longitude);
+      document.querySelector('.location-title').innerText = getName(pos.coords.latitude,pos.coords.longitude).then(res)
     })
     .catch((err) => {
       console.log('err!!!', err);
@@ -114,4 +112,21 @@ function onSetParams(lat, lng) {
 function onCopyLocation() {
   console.log('hi');
   mapService.copyLocation();
+}
+
+function getName(lat,lng){
+  return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${+lat},${+lng}&key=AIzaSyBPyiw6Z3xEf5KBfpiCwH3zOBboChLgf8A`)
+  .then((res) =>{
+    return res.data
+  })
+  .then((res) => {
+    return res.results[0]
+  })
+  .then((res)=>{
+    return res.formatted_address
+  })
+  .then((res) =>{
+    console.log(res);
+    return res;
+  })
 }

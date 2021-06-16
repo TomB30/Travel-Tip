@@ -4,17 +4,23 @@
 
 body {
   margin: 0;
+  background-color: rgb(216, 131, 92);
+  text-align: center;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+button:hover{
+  cursor: pointer;
 }
 
 .debug * {
   outline: black solid 1px;
 }
 
-.main-header-container {
-  border-bottom: 3px solid black;
-}
 
 .main-header {
+  width: 95%;
+  margin: auto;
   height: 80px;
   display: flex;
   justify-content: space-between;
@@ -33,18 +39,32 @@ body {
 
 .search-input {
   height: 40px;
-  border-radius: 5px;
+  background-color: rgb(230, 221, 221);
+  text-align: center;
+  color: white;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  border:1px solid gray
+  
 }
 
-.search-btn,
-.my-location-btn {
+.search-btn,.my-location-btn ,.copy-btn{
+  font-size: 1.1em;
   height: 40px;
-  border-radius: 5px;
+  padding: 0 20px;
+  background-color: gray;
+  color: white;
+  font-family: cursive;
+  border:none;
+  margin: 5px;
+  border:1px solid gray;
+  transition: background-color .3s;
 }
 
-.search-btn img {
-  height: 100%;
+.search-btn:hover,.my-location-btn:hover , .copy-btn:hover{
+  background-color: rgb(189, 180, 180);
+
 }
+
 
 .location-info-container {
   display: flex;
@@ -54,10 +74,21 @@ body {
 
 .main-content-container {
   height: 500px;
+  width: 95%;
+  margin: auto;
 }
 
 .main-content {
   display: flex;
+  margin-top: 30px;
+}
+
+.weather-container {
+  height: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border :1px solid white
 }
 
 .map-container {
@@ -70,7 +101,14 @@ body {
   margin-inline-end: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+}
+
+.location-table-container{
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border:1px solid white
 }
 
 input[name='copy-loc'] {

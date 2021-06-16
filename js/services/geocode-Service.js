@@ -6,7 +6,8 @@ export const locService = {
     getLocs,
     panTo,
     getCoords,
-    deleteLoc
+    deleteLoc,
+    getName
 }
 
 const locs = storageService.load('locationsDB') || [];
@@ -16,6 +17,11 @@ function getLocs() {
     return new Promise((resolve, reject) => {
             resolve(locs);
     });
+}
+
+function getName(lat,lng){
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${+lat},${+lng}&key=${API_KEY}`)
+    .then(console.log)
 }
 
 function getCoords(address) {
