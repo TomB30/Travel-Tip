@@ -71,10 +71,15 @@ function _connectGoogleApi() {
 }
 
 function setParams(lat, lng) {
+  const locs = storageService.load('locationsDB');
+  console.log(locs);
   gMyUrl.searchParams.set('lat', lat);
   gMyUrl.searchParams.set('lng', lng);
-  console.log(gMyUrl);
-  console.log(mapService.gMyUrl.searchParams.get('lat'));
+  const idx = locs.findIndex((loc) => {
+    return loc.lat === +lat && loc.lng === +lng;
+  });
+  console.log(idx);
+  return locs[idx].name;
 }
 
 function copyLocation() {

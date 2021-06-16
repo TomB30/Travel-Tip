@@ -54,7 +54,8 @@ function onGetLocs() {
       </tr>`
       )
       .join('');
-    onSetParams(locs[locs.length - 1].lat, locs[locs.length - 1].lng);
+
+    onSetParams(locs[locs.length - 1].lat, locs[locs.length - 1].lng, false);
     document.querySelector('.locs').innerHTML = strHtml;
     const elGoBtns = document.querySelectorAll('.go-btn');
     elGoBtns.forEach((btn) => {
@@ -74,10 +75,8 @@ function onGetLocs() {
 function onGetUserPos() {
   getPosition()
     .then((pos) => {
+      console.log(pos);
       //pos is by pos.coords
-      document.querySelector(
-        '.user-pos'
-      ).innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`;
       mapService.panTo(pos.coords.latitude, pos.coords.longitude);
     })
     .catch((err) => {
@@ -92,13 +91,15 @@ function onDeleteLoc(name) {
 
 function onGoTo(lat, lng) {
   mapService.panTo(lat, lng);
-  onSetParams(lat, lng);
+  onSetParams(lat, lng, true);
   document.querySelector('.locs-table').hidden = true;
 }
 
 function onPanTo() {
   console.log('Panning the Map');
+  const elLocationName = document.querySelector('.location-title');
   var address = document.querySelector('.search-input').value;
+  elLocationName.innerText = address;
   locService.getCoords(address).then((res) => {
     mapService.panTo(res.lat, res.lng);
   });
@@ -107,7 +108,11 @@ function onPanTo() {
   document.querySelector('.locs-table').hidden = false;
 }
 
-function onSetParams(lat, lng) {
+function onSetParams(lat, lng, toPrint) {
+  if (toPrint) {
+    const elLocationName = document.querySelector('.location-title');
+    elLocationName.innerText = mapService.setParams(lat, lng);
+  }
   mapService.setParams(lat, lng);
 }
 
