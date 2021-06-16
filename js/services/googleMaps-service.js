@@ -1,5 +1,8 @@
 'use strict';
 
+import { locService } from './geocode-Service.js';
+import { storageService } from './storage-Service.js';
+
 export const mapService = {
   initMap,
   addMarker,
@@ -30,6 +33,18 @@ function addMarker(loc) {
     position: loc,
     map: gMap,
     title: prompt('What is the name of this place?'),
+  });
+  const location = {
+    name: marker.title,
+    lat: loc.lat,
+    lng: loc.lng,
+    createdAt: Date.now(),
+  };
+  locService.getLocs().then((res) => {
+    console.log(res);
+    res.push(location);
+    console.log(res);
+    storageService.save('locationsDB', res);
   });
   return marker;
 }

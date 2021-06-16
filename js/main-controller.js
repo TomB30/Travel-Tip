@@ -25,25 +25,28 @@ function getPosition() {
   });
 }
 
-function onGetLocs() {
+function onGetLocs(ev) {
+  ev.stopPropagation();
   locService.getLocs().then((locs) => {
     console.log('Locations:', locs);
     // document.querySelector('.locs').innerText = JSON.stringify(locs);
-    var strHtml = locs.map((loc) =>{
-      return `<tr>
+    var strHtml = locs
+      .map((loc) => {
+        return `<tr>
       <td>${loc.name}</td>
       <td>${loc.lat}</td>
       <td>${loc.lng}</td>
       <td><button class="go-btn" data-lat="${loc.lat}" data-lng="${loc.lng}">Go</button></td>
-  </tr>`
-    }).join('')
-    document.querySelector('.locs').innerHTML= strHtml;
+  </tr>`;
+      })
+      .join('');
+    document.querySelector('.locs').innerHTML = strHtml;
     const elbtns = document.querySelectorAll('.go-btn');
     elbtns.forEach((btn) => {
-      console.log(btn.dataset.lat , btn.dataset.lng);
-      btn.onclick = onGoTo(btn.dataset.lat,btn.dataset.lng);
-    })
-  })
+      console.log(btn.dataset.lat, btn.dataset.lng);
+      btn.onclick = onGoTo(+btn.dataset.lat, +btn.dataset.lng);
+    });
+  });
 }
 
 function onGetUserPos() {
@@ -60,8 +63,9 @@ function onGetUserPos() {
     });
 }
 
-function onGoTo(lat,lng){
-  mapService.panTo(lat,lng);
+function onGoTo(lat, lng) {
+  console.log('hi');
+  mapService.panTo(lat, lng);
 }
 
 function onPanTo() {
@@ -73,5 +77,3 @@ function onPanTo() {
   document.querySelector('.search-input').value = '';
   // mapService.panTo(coords.lat,coords.lng);
 }
-
-
