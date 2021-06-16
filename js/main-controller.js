@@ -51,7 +51,11 @@ function onGetUserPos() {
     });
 }
 function onPanTo() {
-    console.log('Panning the Map');
-    var address = document.querySelector('.search-input').value;
-    mapService.panTo(address);
+  console.log('Panning the Map');
+  var address = document.querySelector('.search-input').value
+  locService.getCoords(address).then((res) => {
+    mapService.panTo(res.lat,res.lng)
+  });
+  // mapService.panTo(coords.lat,coords.lng);
 }
+

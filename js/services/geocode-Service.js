@@ -1,7 +1,8 @@
 'use strict';
 export const locService = {
     getLocs,
-    panTo
+    panTo,
+    getCoords
 }
 
 
@@ -18,8 +19,25 @@ function getLocs() {
     });
 }
 
-
-function panTo(address){
-    const API_KEY = 'AIzaSyBPyiw6Z3xEf5KBfpiCwH3zOBboChLgf8A'
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
+function getCoords(address){
+    const API_KEY = 'AIzaSyBPyiw6Z3xEf5KBfpiCwH3zOBboChLgf8A';
+    return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${API_KEY}`)
+    .then((res) => res.data)
+    .then((res) => res.results[0])
+    .then((res) => res.geometry)
+    .then((res) => res.viewport)
+    .then((res) => res.northeast)
+    .then((res) => {
+        return {
+            lat : res.lat,
+            lng : res.lng
+        }
+    })
 }
+
+
+function panTo(lat, lng) {
+    var laLatLng = new google.maps.LatLng(lat, lng);
+    gMap.panTo(laLatLng);
+  }
+  
