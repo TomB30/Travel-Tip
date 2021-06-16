@@ -2,12 +2,15 @@
 
 import { locService } from './geocode-Service.js';
 import { storageService } from './storage-service.js';
-
+const gMyUrl = new URL('https://tomb30.github.io/Travel-Tip/');
+console.log(gMyUrl.toString());
 export const mapService = {
   initMap,
   addMarker,
   panTo,
+  setParams,
   gMap,
+  gMyUrl,
 };
 
 var gMap;
@@ -41,9 +44,7 @@ function addMarker(loc) {
     createdAt: Date.now(),
   };
   locService.getLocs().then((res) => {
-    console.log(res);
     res.push(location);
-    console.log(res);
     storageService.save('locationsDB', res);
   });
   return marker;
@@ -66,4 +67,11 @@ function _connectGoogleApi() {
     elGoogleApi.onload = resolve;
     elGoogleApi.onerror = () => reject('Google script failed to load');
   });
+}
+
+function setParams(lat, lng) {
+  gMyUrl.searchParams.set('lat', lat);
+  gMyUrl.searchParams.set('lng', lng);
+  console.log(gMyUrl);
+  console.log(mapService.gMyUrl.searchParams.get('lat'));
 }

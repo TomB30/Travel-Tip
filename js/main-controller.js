@@ -15,6 +15,11 @@ function onInit() {
       console.log('Map is ready');
     })
     .catch(() => console.log('Error: cannot init map'));
+  const lat = mapService.gMyUrl.searchParams.get('lat');
+  const lng = mapService.gMyUrl.searchParams.get('lng');
+  if (lat && lng) {
+    mapService.panTo(lat, lng);
+  }
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -28,9 +33,11 @@ function getPosition() {
 function onGetLocs() {
   document.querySelector('.locs-table').hidden = false;
   locService.getLocs().then((locs) => {
-    console.log('Locations:', locs);
-    var strHtml = locs.map((loc) => 
-       `<tr>
+    // console.log('Locations:', locs);
+    var strHtml = locs
+      .map(
+        (loc) =>
+          `<tr>
       <td>${loc.name}</td>
       <td>${loc.lat}</td>
       <td>${loc.lng}</td>
@@ -39,6 +46,7 @@ function onGetLocs() {
       </tr>`
       )
       .join('');
+    onSetParams(locs[locs.length - 1].lat, locs[locs.length - 1].lng);
     document.querySelector('.locs').innerHTML = strHtml;
     const elGoBtns = document.querySelectorAll('.go-btn');
     elGoBtns.forEach((btn) => {
@@ -52,10 +60,8 @@ function onGetLocs() {
         onDeleteLoc(btn.dataset.name);
       });
     });
-  })
+  });
 }
-
-
 
 function onGetUserPos() {
   getPosition()
@@ -72,12 +78,11 @@ function onGetUserPos() {
 }
 
 function onDeleteLoc(name) {
-  locService.deleteLoc(name)
+  locService.deleteLoc(name);
   onGetLocs();
 }
 
 function onGoTo(lat, lng) {
-  console.log('hi');
   mapService.panTo(lat, lng);
   document.querySelector('.locs-table').hidden = true;
 }
@@ -89,6 +94,10 @@ function onPanTo() {
     mapService.panTo(res.lat, res.lng);
   });
   document.querySelector('.search-input').value = '';
-  onGetLocs()
+  onGetLocs();
   document.querySelector('.locs-table').hidden = false;
+}
+
+function onSetParams(lat, lng) {
+  mapService.setParams(lat, lng);
 }
