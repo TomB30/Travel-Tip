@@ -1,6 +1,6 @@
 'use strict';
 
-import { locService } from './services/geocode-Service.js';
+import { locService } from './services/geocode-service.js';
 import { mapService } from './services/googleMaps-service.js';
 
 window.onload = onInit;
@@ -25,30 +25,37 @@ function getPosition() {
   });
 }
 
-function onGetLocs(ev) {
-  ev.stopPropagation();
+function onGetLocs() {
+  document.querySelector('.locs-table').hidden = false;
   locService.getLocs().then((locs) => {
     console.log('Locations:', locs);
-    var strHtml = locs
-      .map((loc) => {
-        return `<tr>
+    var strHtml = locs.map((loc) => 
+       `<tr>
       <td>${loc.name}</td>
       <td>${loc.lat}</td>
       <td>${loc.lng}</td>
       <td><button class="go-btn" data-lat="${loc.lat}" data-lng="${loc.lng}">Go</button></td>
-  </tr>`;
-      })
+      <td><button class="delete-loc-btn" data-name="${loc.name}">Delete</button></td>
+      </tr>`
+      )
       .join('');
     document.querySelector('.locs').innerHTML = strHtml;
-    const elbtns = document.querySelectorAll('.go-btn');
-    elbtns.forEach((btn) => {
-      console.log(btn.dataset.lat, btn.dataset.lng);
+    const elGoBtns = document.querySelectorAll('.go-btn');
+    elGoBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         onGoTo(btn.dataset.lat, btn.dataset.lng);
       });
     });
-  });
+    const elDelBtns = document.querySelectorAll('.delete-loc-btn');
+    elDelBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        onDeleteLoc(btn.dataset.name);
+      });
+    });
+  })
 }
+
+
 
 function onGetUserPos() {
   getPosition()
@@ -64,9 +71,15 @@ function onGetUserPos() {
     });
 }
 
+function onDeleteLoc(name) {
+  locService.deleteLoc(name)
+  onGetLocs();
+}
+
 function onGoTo(lat, lng) {
   console.log('hi');
   mapService.panTo(lat, lng);
+  document.querySelector('.locs-table').hidden = true;
 }
 
 function onPanTo() {
@@ -76,4 +89,6 @@ function onPanTo() {
     mapService.panTo(res.lat, res.lng);
   });
   document.querySelector('.search-input').value = '';
+  onGetLocs()
+  document.querySelector('.locs-table').hidden = false;
 }

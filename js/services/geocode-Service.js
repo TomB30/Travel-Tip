@@ -1,11 +1,12 @@
 'use strict';
 
-import { storageService } from './storage-Service.js'
+import { storageService } from './storage-service.js'
 
 export const locService = {
     getLocs,
     panTo,
     getCoords,
+    deleteLoc
 }
 
 const locs = storageService.load('locationsDB') || [];
@@ -48,6 +49,11 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
+function deleteLoc(name){
+    var idx = findIdxByName(name);
+    locs.splice(idx,1)
+    storageService.save('locationsDB',locs);
+}
 
 function findIdxByName(name){
    return locs.findIndex((location) => location.name === name)

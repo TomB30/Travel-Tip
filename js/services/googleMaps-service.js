@@ -1,7 +1,7 @@
 'use strict';
 
-import { locService } from './geocode-Service.js';
-import { storageService } from './storage-Service.js';
+import { locService } from './geocode-service.js';
+import { storageService } from './storage-service.js';
 
 export const mapService = {
   initMap,
