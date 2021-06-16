@@ -14,16 +14,18 @@ function onInit() {
     .then(() => {
       console.log('Map is ready');
     })
+    .then(() => {
+      const paramters = new URLSearchParams(window.location.search);
+      const lat = paramters.get('lat');
+      const lng = paramters.get('lng');
+      console.log('outside', +lat, +lng);
+      if (lat && lng) {
+        console.log('inside', +lat, +lng);
+        mapService.panTo(+lat, +lng);
+        initMap(lat, lng);
+      }
+    })
     .catch(() => console.log('Error: cannot init map'));
-  const paramters = new URLSearchParams(window.location.search);
-  const lat = paramters.get('lat');
-  const lng = paramters.get('lng');
-  console.log('outside', +lat, +lng);
-  if (lat && lng) {
-    console.log('inside', +lat, +lng);
-    mapService.panTo(+lat, +lng);
-    initMap(lat, lng);
-  }
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
