@@ -1,3 +1,6 @@
-AIzaSyASojpKZ9kBLOjwP_7vIoC6mmEO_pbq-Jg
-
 google maps api for js
+AIzaSyASojpKZ9kBLOjwP_7vIoC6mmEO_pbq-Jg  Moshiko's API
+AIzaSyA_SOzSZMfODNHL-9Bdm4sHscL79Y0uCIs  Tom's API
+
+google geocode API 
+AIzaSyBPyiw6Z3xEf5KBfpiCwH3zOBboChLgf8A Tom's API
