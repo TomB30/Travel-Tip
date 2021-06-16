@@ -22,6 +22,7 @@ function onInit() {
   if (lat && lng) {
     console.log('inside', +lat, +lng);
     mapService.panTo(+lat, +lng);
+    initMap(lat, lng);
   }
 }
 
