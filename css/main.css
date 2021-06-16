@@ -115,10 +115,3 @@ input[name='copy-loc'] {
   opacity: 0;
   position: absolute;
 }
-
-/* LAYOUT */
-
-.main-layout {
-  width: 95%;
-  margin: auto;
-}

@@ -75,10 +75,16 @@ function onGetLocs() {
 function onGetUserPos() {
   getPosition()
     .then((pos) => {
-      console.log(pos);
-      //pos is by pos.coords
       mapService.panTo(pos.coords.latitude, pos.coords.longitude);
-      document.querySelector('.location-title').innerText = getName(pos.coords.latitude,pos.coords.longitude).then(res)
+      const addressName = getName(pos.coords.latitude,pos.coords.longitude).then(res => {
+        console.log(res);
+        return res;
+      });
+      return Promise.all([addressName])
+    })
+    .then((res) => {
+      const elTitle = document.querySelector('.location-title');
+      elTitle.innerText = res;
     })
     .catch((err) => {
       console.log('err!!!', err);
@@ -134,7 +140,6 @@ function getName(lat,lng){
     return res.formatted_address
   })
   .then((res) =>{
-    console.log(res);
     return res;
   })
 }
