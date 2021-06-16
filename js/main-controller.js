@@ -15,8 +15,10 @@ function onInit() {
       console.log('Map is ready');
     })
     .catch(() => console.log('Error: cannot init map'));
+  mapService.gMyUrl = window.location.href;
   const lat = mapService.gMyUrl.searchParams.get('lat');
   const lng = mapService.gMyUrl.searchParams.get('lng');
+  console.log(window.location.href);
   console.log('got pushed', +lat, +lng);
   if (lat && lng) {
     console.log('is pushing', +lat, +lng);
