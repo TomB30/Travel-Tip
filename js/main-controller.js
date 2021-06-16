@@ -15,13 +15,12 @@ function onInit() {
       console.log('Map is ready');
     })
     .catch(() => console.log('Error: cannot init map'));
-  mapService.gMyUrl = window.location.href;
-  const lat = mapService.gMyUrl.searchParams.get('lat');
-  const lng = mapService.gMyUrl.searchParams.get('lng');
-  console.log(window.location.href);
-  console.log('got pushed', +lat, +lng);
+  const paramters = new URLSearchParams(window.location.search);
+  const lat = paramters.get('lat');
+  const lng = paramters.get('lng');
+  console.log('outside', +lat, +lng);
   if (lat && lng) {
-    console.log('is pushing', +lat, +lng);
+    console.log('inside', +lat, +lng);
     mapService.panTo(+lat, +lng);
   }
 }
