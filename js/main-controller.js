@@ -18,7 +18,7 @@ function onInit() {
   const lat = mapService.gMyUrl.searchParams.get('lat');
   const lng = mapService.gMyUrl.searchParams.get('lng');
   if (lat && lng) {
-    mapService.panTo(lat, lng);
+    mapService.panTo(+lat, +lng);
   }
 }
 
