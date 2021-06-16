@@ -2,7 +2,7 @@
 
 import { locService } from './geocode-Service.js';
 import { storageService } from './storage-service.js';
-const gMyUrl = new URL('http://127.0.0.1:5500/index.html');
+const gMyUrl = new URL('https://tomb30.github.io/Travel-Tip/');
 console.log(gMyUrl.toString());
 export const mapService = {
   initMap,
